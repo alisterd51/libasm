@@ -36,7 +36,7 @@ LDFLAGS.release	:= -O3
 LDFLAGS	:= ${LDFLAGS.${BUILD}}
 
 COMPILE.C	= ${CC} -MD -MP ${CFLAGS} -c $< -o $@
-COMPILE.ASM	= ${AS} -MD -MP -c $< -o $@
+COMPILE.ASM	= ${AS} -c $< -o $@
 LINK	= ${CC} ${LDFLAGS} ${filter-out Makefile, $^} ${LDLIBS} -o $@
 ARCHIVE	= ${AR} $@ ${filter-out Makefile, $^}
 
