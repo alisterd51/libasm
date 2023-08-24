@@ -1,5 +1,8 @@
 #include <stdio.h>
+#include "libasm.h"
 
 int main() {
-    printf("hello\n");
+    char    *str = "hello";
+
+    printf("%s: %zu\n", str, ft_strlen(str));
 }

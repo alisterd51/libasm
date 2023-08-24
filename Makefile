@@ -10,7 +10,7 @@ BIN_CHECK	:= test_libasm
 libs	:= ${LIB}
 exes	:= ${BIN_CHECK}
 
-SRCS	:=
+SRCS	:= ft_strlen.s
 SRCS_CHECK	:= main.c
 
 OBJS	:= ${SRCS:.s=.o}
@@ -29,14 +29,17 @@ CFLAGS.debug	:= -O0 -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
 CFLAGS.release	:= -O3
 CFLAGS	:= -Wall -Wextra -Werror ${CFLAGS.${BUILD}}
 
-LDLIBS	:=
+LDLIBS	:= -lc -L${build_dir} -l:${LIB}
 
 LDFLAGS.debug	:= -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
 LDFLAGS.release	:= -O3
 LDFLAGS	:= ${LDFLAGS.${BUILD}}
 
+ASFLAGS.clang	:= -masm=intel
+ASFLAGS := ${ASFLAGS.${AS}}
+
 COMPILE.C	= ${CC} -MD -MP ${CFLAGS} -c $< -o $@
-COMPILE.ASM	= ${AS} -c $< -o $@
+COMPILE.ASM	= ${AS} ${ASFLAGS} -c $< -o $@
 LINK	= ${CC} ${LDFLAGS} ${filter-out Makefile, $^} ${LDLIBS} -o $@
 ARCHIVE	= ${AR} $@ ${filter-out Makefile, $^}
 
