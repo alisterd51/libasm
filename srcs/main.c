@@ -140,7 +140,7 @@ int main()
         {
             const int lens[] = {0, 1, 42};
 
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < 3; j++)
             {
                 int fd = open("test_read.txt", O_WRONLY | O_CREAT, 00662);
                 int ret_write = write(fd, content[i], strlen(content[i]));
@@ -160,14 +160,14 @@ int main()
                     char buf_1[50] = {0};
                     char buf_2[50] = {0};
 
-                    printf("read(%d, \"%s\", %d): ", fds_1[k], buf_1, lens[j]); fflush(NULL);
+                    printf("read(%d, \"%s\", %d): ", fds_1[k], buf_1, lens[j]);
                     ret_1 = read(fds_1[k], buf_1, lens[j]);
                     if (ret_1 == -1)
                         errno_1 = errno;
                     ret_2 = read(fds_2[k], buf_2, lens[j]);
                     if (ret_2 == -1)
                         errno_2 = errno;
-                    printf("ret: %d == %d, buf: \"%s\" == \"%s\", errno: %d == %d", ret_1, ret_2, buf_1, buf_2, errno_1, errno_2); fflush(NULL);
+                    printf("ret: %d == %d, buf: \"%s\" == \"%s\", errno: %d == %d", ret_1, ret_2, buf_1, buf_2, errno_1, errno_2);
                     if (ret_1 == ret_2 && strcmp(buf_1, buf_2) == 0 && errno_1 == errno_2)
                     {
                         printf(" OK\n");
