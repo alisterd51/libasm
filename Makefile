@@ -10,7 +10,8 @@ BIN_CHECK	:= test_libasm
 libs	:= ${LIB}
 exes	:= ${BIN_CHECK}
 
-SRCS	:= ft_strlen.s
+SRCS	:= ft_strlen.s	\
+		   ft_strcpy.s
 SRCS_CHECK	:= main.c
 
 OBJS	:= ${SRCS:.s=.o}

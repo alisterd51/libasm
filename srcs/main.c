@@ -42,7 +42,7 @@ int main()
             char str_cpy_2[11] = "aaaaaaaaaa";
             printf("strcpy(\"%s\", \"%s\"): ", str_cpy_1, str[i]);
             char *str_cpy_ptr_1 = strcpy(str_cpy_1, str[i]);
-            char *str_cpy_ptr_2 = strcpy(str_cpy_2, str[i]);
+            char *str_cpy_ptr_2 = ft_strcpy(str_cpy_2, str[i]);
             ssize_t ret_write;
 
             printf("diff_ret = %d, dest = \'", str_cpy_ptr_1 == str_cpy_1);
