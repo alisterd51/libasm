@@ -4,6 +4,8 @@
 #include "libasm.h"
 
 int main() {
+    int ret_value = 0;
+
     // test ft_strlen
     {
         printf("\ntest ft_strlen:\n");
@@ -12,7 +14,14 @@ int main() {
             size_t  ret_1 = strlen(str[i]);
             size_t  ret_2 = ft_strlen(str[i]);
 
-            printf("%zu == %zu. %s\n", ret_1, ret_2, ret_1 == ret_2 ? "OK" : "KO");
+            printf("%zu == %zu.", ret_1, ret_2);
+            if (ret_1 == ret_2) {
+                printf(" OK\n");
+            }
+            else {
+                printf(" KO\n");
+                ret_value = 1;
+            }
         }
     }
     // test ft_strcpy
@@ -31,8 +40,15 @@ int main() {
             printf(" == ");
             printf("diff_ret = %d, dest = \'", str_cpy_ptr_2 == str_cpy_2); fflush(NULL);
             write(1, str_cpy_2, 10);
-            printf("\', len_dest: %zu", strlen(str_cpy_2));
-            printf(" %s\n", str_cpy_ptr_2 == str_cpy_2 && memcmp(str_cpy_1, str_cpy_2, 11 * sizeof(char)) == 0 ? "OK" : "KO");
+            printf("\', len_dest: %zu.", strlen(str_cpy_2));
+            if (str_cpy_ptr_2 == str_cpy_2 && memcmp(str_cpy_1, str_cpy_2, 11 * sizeof(char)) == 0) {
+                printf(" OK\n");
+            }
+            else {
+                printf(" KO\n");
+                ret_value = 1;
+            }
         }
     }
+    return (ret_value);
 }
