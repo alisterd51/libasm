@@ -70,7 +70,7 @@ fclean:
 
 re: fclean all
 
-check: ${exes:%=${build_dir}/%}
+check: all ${exes:%=${build_dir}/%}
 	./${build_dir}/${BIN_CHECK}
 
 .PHONY: all clean fclean re ${LIB}
