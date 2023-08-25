@@ -24,7 +24,7 @@ jobs:
     - name: make re BUILD=release CC=gcc
       run: |
         make re BUILD=release CC=gcc
-        make BUILD=release CC=gcc
+        make check BUILD=release CC=gcc
     - name: make re BUILD=release CC=clang
       run: |
         make re BUILD=release CC=clang
