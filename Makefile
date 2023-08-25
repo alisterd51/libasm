@@ -38,7 +38,7 @@ LDFLAGS	:= ${LDFLAGS.${BUILD}}
 ASFLAGS.clang	:= -masm=intel
 ASFLAGS := ${ASFLAGS.${AS}}
 
-COMPILE.C	= ${CC} -MD -MP ${CFLAGS} -c $< -o $@
+COMPILE.C	= ${CC} -MMD -MP ${CFLAGS} -c $< -o $@
 COMPILE.ASM	= ${AS} ${ASFLAGS} -c $< -o $@
 LINK	= ${CC} ${LDFLAGS} ${filter-out Makefile, $^} ${LDLIBS} -o $@
 ARCHIVE	= ${AR} $@ ${filter-out Makefile, $^}
