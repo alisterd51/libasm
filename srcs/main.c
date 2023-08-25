@@ -33,13 +33,14 @@ int main() {
             char str_cpy_2[11] = "aaaaaaaaaa";
             char *str_cpy_ptr_1 = strcpy(str_cpy_1, str[i]);
             char *str_cpy_ptr_2 = strcpy(str_cpy_2, str[i]);
+            ssize_t ret_write;
 
             printf("diff_ret = %d, dest = \'", str_cpy_ptr_1 == str_cpy_1); fflush(NULL);
-            write(1, str_cpy_1, 10);
+            ret_write = write(1, str_cpy_1, 10);
             printf("\', len_dest: %zu", strlen(str_cpy_1));
             printf(" == ");
             printf("diff_ret = %d, dest = \'", str_cpy_ptr_2 == str_cpy_2); fflush(NULL);
-            write(1, str_cpy_2, 10);
+            ret_write = write(1, str_cpy_2, 10);
             printf("\', len_dest: %zu.", strlen(str_cpy_2));
             if (str_cpy_ptr_2 == str_cpy_2 && memcmp(str_cpy_1, str_cpy_2, 11 * sizeof(char)) == 0) {
                 printf(" OK\n");
@@ -48,6 +49,7 @@ int main() {
                 printf(" KO\n");
                 ret_value = 1;
             }
+            (void)ret_write;
         }
     }
     return (ret_value);

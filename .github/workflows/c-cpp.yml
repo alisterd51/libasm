@@ -1,0 +1,31 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: make re CC=gcc
+      run: |
+        make re CC=gcc
+        make check CC=gcc
+    - name: make re CC=clang
+      run: |
+        make re CC=clang
+        make check CC=clang
+    - name: make re BUILD=release CC=gcc
+      run: |
+        make re BUILD=release CC=gcc
+        make BUILD=release CC=gcc
+    - name: make re BUILD=release CC=clang
+      run: |
+        make re BUILD=release CC=clang
+        make check BUILD=release CC=clang
