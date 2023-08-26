@@ -5,7 +5,9 @@ build_dir := ${BUILD}
 srcs_dir := srcs
 
 LIB	:= libasm.a
+LIB_BONUS	:= libasm_bonus.a
 BIN_CHECK	:= test_libasm
+BIN_CHECK_BONUS	:= test_libasm_bonus
 
 libs	:= ${LIB}
 exes	:= ${BIN_CHECK}
@@ -16,15 +18,22 @@ SRCS	:= ft_strlen.s	\
 		   ft_write.s	\
 		   ft_read.s	\
 		   ft_strdup.s
+SRCS_BONUS	:= ${SRCS}	\
+			   
 SRCS_CHECK	:= main.c
+SRCS_CHECK_BONUS	:= main_bonus.c
 
 OBJS	:= ${SRCS:.s=.o}
+OBJS_BONUS	:= ${SRCS_BONUS:.s=.o}
 OBJS_CHECK	:= ${SRCS_CHECK:.c=.o}
+OBJS_CHECK_BONUS	:= ${SRCS_CHECK_BONUS:.c=.o}
 
 DEPS	:= ${OBJS:.o=.d}
+DEPS_BONUS	:= ${OBJS_BONUS:.o=.d}
 DEPS_CHECK	:= ${OBJS_CHECK:.o=.d}
+DEPS_CHECK_BONUS	:= ${OBJS_CHECK_BONUS:.o=.d}
 
--include ${addprefix ${build_dir}/, ${DEPS} ${DEPS_CHECK}}
+-include ${addprefix ${build_dir}/, ${DEPS} ${DEPS_BONUS} ${DEPS_CHECK} ${DEPS_CHECK_BONUS}}
 
 CC	:= clang
 AS	:= clang

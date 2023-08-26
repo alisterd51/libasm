@@ -13,19 +13,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: make re CC=gcc
-      run: |
-        make re CC=gcc
-        make check CC=gcc
-    - name: make re CC=clang
-      run: |
-        make re CC=clang
-        make check CC=clang
-    - name: make re BUILD=release CC=gcc
-      run: |
-        make re BUILD=release CC=gcc
-        make check BUILD=release CC=gcc
-    - name: make re BUILD=release CC=clang
-      run: |
-        make re BUILD=release CC=clang
-        make check BUILD=release CC=clang
+    - name: default debug
+      run: make fclean check CC=cc AS=as
+    - name: gcc debug
+      run: make fclean check CC=gcc AS=gcc
+    - name: clang debug
+      run: make fclean check CC=clang AS=clang
+    - name: default release
+      run: make fclean check BUILD=release CC=cc AS=as
+    - name: gcc release
+      run: make fclean check BUILD=release CC=gcc AS=gcc
+    - name: clang release
+      run: make fclean check BUILD=release CC=clang AS=clang
