@@ -76,6 +76,11 @@ int main()
             int ret_1 = strcmp(str_1[i], str_2[i]);
             int ret_2 = ft_strcmp(str_1[i], str_2[i]);
 
+            // to respect the man, we normalize the result of 'strcmp'
+            if (ret_1 > 0)
+                ret_1 = 1;
+            else if (ret_1 < 0)
+                ret_1 = -1;
             printf("strcmp(\"%s\", \"%s\"): ", str_1[i], str_2[i]);
             printf("%d == %d.", ret_1, ret_2);
             if (ret_1 == ret_2)
