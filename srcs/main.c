@@ -118,7 +118,7 @@ int main()
                     errno_1 = errno;
                 printf("\' == \'");
                 fflush(NULL);
-                ret_2 = write(fds[j], str[i], len[i]);
+                ret_2 = ft_write(fds[j], str[i], len[i]);
                 if (ret_2 == -1)
                     errno_2 = errno;
                 printf("\', ");
