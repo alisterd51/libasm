@@ -196,7 +196,7 @@ int main()
         for (int i = 0; str[i] != NULL; i++)
         {
             char *ret_1 = strdup(str[i]);
-            char *ret_2 = strdup(str[i]);
+            char *ret_2 = ft_strdup(str[i]);
 
             printf("strdup(\"%s\"): ", str[i]);
             printf("\"%s\" == \"%s\"", ret_1, ret_2);
