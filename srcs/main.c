@@ -74,7 +74,7 @@ int main()
         for (int i = 0; str_1[i] != NULL && str_2[i] != NULL; i++)
         {
             int ret_1 = strcmp(str_1[i], str_2[i]);
-            int ret_2 = strcmp(str_1[i], str_2[i]);
+            int ret_2 = ft_strcmp(str_1[i], str_2[i]);
 
             printf("strcmp(\"%s\", \"%s\"): ", str_1[i], str_2[i]);
             printf("%d == %d.", ret_1, ret_2);

@@ -11,7 +11,8 @@ libs	:= ${LIB}
 exes	:= ${BIN_CHECK}
 
 SRCS	:= ft_strlen.s	\
-		   ft_strcpy.s
+		   ft_strcpy.s	\
+		   ft_strcmp.s
 SRCS_CHECK	:= main.c
 
 OBJS	:= ${SRCS:.s=.o}
