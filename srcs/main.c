@@ -169,7 +169,7 @@ int main()
                     ret_1 = read(fds_1[k], buf_1, lens[j]);
                     if (ret_1 == -1)
                         errno_1 = errno;
-                    ret_2 = read(fds_2[k], buf_2, lens[j]);
+                    ret_2 = ft_read(fds_2[k], buf_2, lens[j]);
                     if (ret_2 == -1)
                         errno_2 = errno;
                     printf("ret: %d == %d, buf: \"%s\" == \"%s\", errno: %d == %d", ret_1, ret_2, buf_1, buf_2, errno_1, errno_2);
