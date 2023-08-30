@@ -10,7 +10,9 @@ BIN_CHECK	:= test_libasm
 BIN_CHECK_BONUS	:= test_libasm_bonus
 
 libs	:= ${LIB}
+libs_bonus	:= ${LIB_BONUS}
 exes	:= ${BIN_CHECK}
+exes_bonus	:= ${BIN_CHECK_BONUS}
 
 SRCS	:= ft_strlen.s	\
 		   ft_strcpy.s	\
@@ -44,6 +46,7 @@ CFLAGS.release	:= -O3
 CFLAGS	:= -Wall -Wextra -Werror ${CFLAGS.${BUILD}}
 
 LDLIBS	:= -lc -L${build_dir} -l:${LIB}
+LDLIBS_BONUS	:= -lc -L${build_dir} -l:${LIB_BONUS}
 
 LDFLAGS.debug	:= -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
 LDFLAGS.release	:= -O3
@@ -55,9 +58,12 @@ ASFLAGS := ${ASFLAGS.${AS}}
 COMPILE.C	= ${CC} -MMD -MP ${CFLAGS} -c $< -o $@
 COMPILE.ASM	= ${AS} ${ASFLAGS} -c $< -o $@
 LINK	= ${CC} ${LDFLAGS} ${filter-out Makefile, $^} ${LDLIBS} -o $@
+LINK_BONUS	= ${CC} ${LDFLAGS} ${filter-out Makefile, $^} ${LDLIBS_BONUS} -o $@
 ARCHIVE	= ${AR} $@ ${filter-out Makefile, $^}
 
 all: ${libs:%=${build_dir}/%}
+
+bonus: ${libs_bonus:%=${build_dir}/%}
 
 ${build_dir}:
 	mkdir $@
@@ -71,10 +77,18 @@ ${build_dir}/%.o: ${srcs_dir}/%.s Makefile | ${build_dir}
 ${build_dir}/${LIB}: ${addprefix ${build_dir}/, ${OBJS}} Makefile | ${build_dir}
 	${strip ${ARCHIVE}}
 
-${build_dir}/${BIN_CHECK}: ${addprefix ${build_dir}/, ${LIB} ${OBJS_CHECK}} Makefile | ${build_dir}
+${build_dir}/${LIB_BONUS}: ${addprefix ${build_dir}/, ${OBJS_BONUS}} Makefile | ${build_dir}
+	${strip ${ARCHIVE}}
+
+${build_dir}/${BIN_CHECK}: ${addprefix ${build_dir}/, ${OBJS_CHECK}} Makefile | ${LIB} ${build_dir}
 	${strip ${LINK}}
 
+${build_dir}/${BIN_CHECK_BONUS}: ${addprefix ${build_dir}/, ${OBJS_CHECK_BONUS}} Makefile | ${LIB_BONUS} ${build_dir}
+	${strip ${LINK_BONUS}}
+
 ${LIB}: ${build_dir}/${LIB}
+
+${LIB_BONUS}: ${build_dir}/${LIB_BONUS}
 
 clean:
 	rm -f ${addprefix ${build_dir}/, ${OBJS} ${DEPS}}
@@ -87,4 +101,7 @@ re: fclean all
 check: all ${exes:%=${build_dir}/%}
 	./${build_dir}/${BIN_CHECK}
 
-.PHONY: all clean fclean re ${LIB}
+check_bonus: bonus ${exes_bonus:%=${build_dir}/%}
+	./${build_dir}/${BIN_CHECK_BONUS}
+
+.PHONY: all clean fclean re ${LIB} ${LIB_BONUS}

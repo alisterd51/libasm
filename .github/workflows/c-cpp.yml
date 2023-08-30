@@ -14,14 +14,26 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: default debug
-      run: make fclean check CC=cc AS=as
+      run: |
+        make fclean check CC=cc AS=as
+        make fclean check_bonus CC=cc AS=as
     - name: gcc debug
-      run: make fclean check CC=gcc AS=gcc
+      run: |
+        make fclean check CC=gcc AS=gcc
+        make fclean check_bonus CC=gcc AS=gcc
     - name: clang debug
-      run: make fclean check CC=clang AS=clang
+      run: |
+        make fclean check CC=clang AS=clang
+        make fclean check_bonus CC=clang AS=clang
     - name: default release
-      run: make fclean check BUILD=release CC=cc AS=as
+      run: |
+        make fclean check BUILD=release CC=cc AS=as
+        make fclean check_bonus BUILD=release CC=cc AS=as
     - name: gcc release
-      run: make fclean check BUILD=release CC=gcc AS=gcc
+      run: |
+        make fclean check BUILD=release CC=gcc AS=gcc
+        make fclean check_bonus BUILD=release CC=gcc AS=gcc
     - name: clang release
-      run: make fclean check BUILD=release CC=clang AS=clang
+      run: |
+        make fclean check BUILD=release CC=clang AS=clang
+        make fclean check_bonus BUILD=release CC=clang AS=clang
