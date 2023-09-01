@@ -264,7 +264,7 @@ int main()
                 ft_list_push_front_ref(&list_2, (void *)strdup(str[i]));
             }
             ret_1 = ft_list_size_ref(list_1);
-            ret_2 = ft_list_size_ref(list_2);
+            ret_2 = ft_list_size(list_2);
             printf("%d == %d", ret_1, ret_2);
             if (ret_1 == ret_2)
             {
