@@ -4,6 +4,16 @@
     .globl ft_atoi_base
 
 ft_atoi_base:
+    push    r15
+    push    r14
+    push    r13
+    push    r12
+    push    r11
+    push    r10
+    push    r9
+    push    r8
+    push    rdx
+    push    rcx
 .LBB_invalid_strlen:
     push    rdi
     mov     rdi, rsi
@@ -40,12 +50,17 @@ ft_atoi_base:
 .LBB_invalid_char_loop:
     cmp     byte ptr [rsi + rcx], 0
     je      .LBB_invalid_char_loop_end
-    push    rdi
-    mov     dl, byte ptr [rsi + rcx]
-    mov     rdi, rdx
-    call    .ft_isspace
-    pop     rdi
-    cmp     rax, 1
+    cmp     byte ptr [rsi + rcx], ' '
+    je      .LBB_error_base
+    cmp     byte ptr [rsi + rcx], '\f'
+    je      .LBB_error_base
+    cmp     byte ptr [rsi + rcx], '\n'
+    je      .LBB_error_base
+    cmp     byte ptr [rsi + rcx], '\r'
+    je      .LBB_error_base
+    cmp     byte ptr [rsi + rcx], '\t'
+    je      .LBB_error_base
+    cmp     byte ptr [rsi + rcx], '\v'
     je      .LBB_error_base
     cmp     byte ptr [rsi + rcx], '-'
     je      .LBB_error_base
@@ -147,27 +162,16 @@ ft_atoi_base:
 .LBB_error_base:
     mov     rax, 0
 .LBB_end:
-    ret
-
-.ft_isspace:
-    cmp     rdi, ' '
-    je      .LBB_ft_isspace_end_true
-    cmp     rdi, '\f'
-    je      .LBB_ft_isspace_end_true
-    cmp     rdi, '\n'
-    je      .LBB_ft_isspace_end_true
-    cmp     rdi, '\r'
-    je      .LBB_ft_isspace_end_true
-    cmp     rdi, '\t'
-    je      .LBB_ft_isspace_end_true
-    cmp     rdi, '\v'
-    je      .LBB_ft_isspace_end_true
-.LBB_ft_isspace_end_false:
-    mov     rax, 0
-    jmp     .LBB_ft_isspace_end
-.LBB_ft_isspace_end_true:
-    mov     rax, 1
-.LBB_ft_isspace_end:
+    pop     rcx
+    pop     rdx
+    pop     r8
+    pop     r9
+    pop     r10
+    pop     r11
+    pop     r12
+    pop     r13
+    pop     r14
+    pop     r15
     ret
 
 .ft_strchr:
