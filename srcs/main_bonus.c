@@ -33,7 +33,6 @@ int ft_atoi_base_ref(const char *str, const char *base)
     int i = 0;
     unsigned long int ret_value = 0;
 
-    (void)str;
     if (strlen(base) <= 1 || is_duplicate(base) || invalid_char_base(base))
         return (0);
     while (isspace(str[i]))
@@ -193,15 +192,15 @@ int main()
     // test ft_atoi_base
     {
         printf("\ntest ft_atoi_base:\n");
-        const char *str[] = {"", "\?", "01", "2", "afffffffa", "-", "-0", "-1", "   ---+--+1234ab567", "   ---+-+1234ab567", "1234ab567", "-2147483649", "4294967295", "-9223372036854775808", "-18446744073709551615", NULL};
+        char *str[] = {"", "\?", "01", "2", "afffffffa", "-", "-0", "-1", "   ---+--+1234ab567", "   ---+-+1234ab567", "1234ab567", "-2147483649", "4294967295", "-9223372036854775808", "-18446744073709551615", "43", "+43", "-43", "--43","---43", " -43", " --43"," ---43", NULL};
         for (int i = 0; str[i] != NULL; i++)
         {
-            const char *base[] = {"", "0", "010", "001", "0\t1", "01 ", "+01", "01", "01234567", "0123456789", "0123456789abcdef", NULL};
+            char *base[] = {"", "0", "010", "001", "0\t1", "01 ", "+01", "01", "01234567", "0123456789", "0123456789abcdef", NULL};
 
             for (int j = 0; base[j] != NULL; j++)
             {
                 int ret_1 = ft_atoi_base_ref(str[i], base[j]);
-                int ret_2 = ft_atoi_base_ref(str[i], base[j]);
+                int ret_2 = ft_atoi_base(str[i], base[j]);
 
                 printf("ft_atoi_base(\"%s\", \"%s\"): ", str[i], base[j]);
                 printf("%d == %d.", ret_1, ret_2);

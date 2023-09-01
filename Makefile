@@ -21,7 +21,7 @@ SRCS	:= ft_strlen.s	\
 		   ft_read.s	\
 		   ft_strdup.s
 SRCS_BONUS	:= ${SRCS}	\
-			   
+			   ft_atoi_base_bonus.s
 SRCS_CHECK	:= main.c
 SRCS_CHECK_BONUS	:= main_bonus.c
 
