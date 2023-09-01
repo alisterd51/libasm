@@ -227,7 +227,7 @@ int main()
         for (int i = 0; str[i] != NULL; i++)
         {
             ft_list_push_front_ref(&list_1, (void *)strdup(str[i]));
-            ft_list_push_front_ref(&list_2, (void *)strdup(str[i]));
+            ft_list_push_front(&list_2, (void *)strdup(str[i]));
         }
         ft_list_print_ref(list_1);
         printf(" == ");
