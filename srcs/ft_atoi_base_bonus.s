@@ -1,7 +1,6 @@
     .text
     .intel_syntax noprefix
     .extern ft_strlen
-    .extern strchr
     .globl ft_atoi_base
 
 ft_atoi_base:
@@ -97,7 +96,7 @@ ft_atoi_base:
     mov     rdi, r10
     mov     dl, byte ptr [r11]
     mov     rsi, rdx
-    call    strchr
+    call    .ft_strchr
 
     mov     rdi, r11
     mov     rsi, r10
@@ -169,6 +168,18 @@ ft_atoi_base:
 .LBB_ft_isspace_end_true:
     mov     rax, 1
 .LBB_ft_isspace_end:
+    ret
+
+.ft_strchr:
+    mov     dl, byte ptr [rdi]
+    cmp     dl, 0
+    je      .LBB_ft_strchr_end
+    cmp     rdx, rsi
+    je      .LBB_ft_strchr_end
+    inc     rdi
+    jmp     .ft_strchr
+.LBB_ft_strchr_end:
+    mov     rax, rdi
     ret
 
     .section    ".note.GNU-stack","",@progbits
