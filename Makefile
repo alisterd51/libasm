@@ -104,4 +104,4 @@ check: all ${exes:%=${build_dir}/%}
 check_bonus: bonus ${exes_bonus:%=${build_dir}/%}
 	./${build_dir}/${BIN_CHECK_BONUS}
 
-.PHONY: all clean fclean re ${LIB} ${LIB_BONUS}
+.PHONY: all bonus clean fclean re ${LIB} ${LIB_BONUS}
