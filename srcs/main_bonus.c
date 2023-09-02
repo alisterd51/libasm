@@ -102,7 +102,7 @@ void ft_list_print_ref(t_list *list)
     }
 }
 
-int ft_list_sorted_ref(t_list *begin_list, int(*cmp)(void *, void *))
+int ft_list_sorted_ref(t_list *begin_list, int (*cmp)(void *, void *))
 {
     while (begin_list != NULL && begin_list->next != NULL)
     {
@@ -133,6 +133,32 @@ void ft_list_sort_ref(t_list **begin_list, int(cmp)(void *, void *))
         }
     }
     *begin_list = list.next;
+}
+
+void ft_list_sort_ref2(t_list **begin_list, int(cmp)(void *, void *))
+{
+    while (!ft_list_sorted_ref(*begin_list, cmp))
+    {
+        t_list *prev = NULL;
+        t_list *current = *begin_list;
+
+        while (current != NULL && current->next != NULL)
+        {
+            if ((*cmp)(current->data, current->next->data) > 0)
+            {
+                t_list *node3 = current->next->next;
+
+                if (prev == NULL)
+                    *begin_list = current->next;
+                else
+                    prev->next = current->next;
+                current->next->next = current;
+                current->next = node3;
+            }
+            prev = current;
+            current = current->next;
+        }
+    }
 }
 
 void ft_list_remove_if_ref(t_list **begin_list, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *))
@@ -297,7 +323,7 @@ int main()
                 ft_list_push_front_ref(&list_2, (void *)strdup(str[i]));
             }
             ft_list_sort_ref(&list_1, ft_cmp);
-            ft_list_sort_ref(&list_2, ft_cmp);
+            ft_list_sort_ref2(&list_2, ft_cmp);
             ft_list_print_ref(list_1);
             printf(" == ");
             ft_list_print_ref(list_2);
