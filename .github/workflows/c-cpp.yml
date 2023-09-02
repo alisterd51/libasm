@@ -37,3 +37,15 @@ jobs:
       run: |
         make fclean check BUILD=release CC=clang AS=clang
         make fclean check_bonus BUILD=release CC=clang AS=clang
+    - name: default normal
+      run: |
+        make fclean check BUILD=normal CC=cc AS=as
+        make fclean check_bonus BUILD=normal CC=cc AS=as
+    - name: gcc normal
+      run: |
+        make fclean check BUILD=normal CC=gcc AS=gcc
+        make fclean check_bonus BUILD=normal CC=gcc AS=gcc
+    - name: clang normal
+      run: |
+        make fclean check BUILD=normal CC=clang AS=clang
+        make fclean check_bonus BUILD=normal CC=clang AS=clang
