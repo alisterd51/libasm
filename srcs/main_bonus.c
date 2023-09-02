@@ -113,7 +113,7 @@ int ft_list_sorted_ref(t_list *begin_list, int (*cmp)(void *, void *))
     return (1);
 }
 
-void ft_list_sort_ref(t_list **begin_list, int(*cmp)(void *, void *))
+void ft_list_sort_ref(t_list **begin_list, int (*cmp)(void *, void *))
 {
     t_list list = (t_list){.data = NULL, .next = *begin_list};
 
@@ -135,7 +135,7 @@ void ft_list_sort_ref(t_list **begin_list, int(*cmp)(void *, void *))
     *begin_list = list.next;
 }
 
-void ft_list_sort_ref2(t_list **begin_list, int(*cmp)(void *, void *))
+void ft_list_sort_ref2(t_list **begin_list, int (*cmp)(void *, void *))
 {
     while (!ft_list_sorted_ref(*begin_list, cmp))
     {
@@ -177,6 +177,30 @@ void ft_list_remove_if_ref(t_list **begin_list, void *data_ref, int (*cmp)(void 
         }
     }
     *begin_list = list.next;
+}
+
+void ft_list_remove_if_ref2(t_list **begin_list, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *))
+{
+    t_list *prev = NULL;
+    t_list *current = *begin_list;
+
+    while (current != NULL)
+    {
+        t_list  *next = current->next;
+
+        if ((*cmp)(current->data, data_ref) == 0)
+        {
+            (*free_fct)(current->data);
+            free(current);
+            if (prev != NULL)
+                prev->next = next;
+            else
+                *begin_list = next;
+        }
+        else
+            prev = current;
+        current = next;
+    }
 }
 
 int ft_list_diff_ref(t_list *list_1, t_list *list_2)
@@ -351,7 +375,7 @@ int main()
         {
             for (int j = 0; j < 4; j++)
             {
-                printf("ft_list_sort(): ");
+                printf("ft_list_remove_if(): ");
                 t_list *list_1 = NULL;
                 t_list *list_2 = NULL;
 
@@ -361,7 +385,7 @@ int main()
                     ft_list_push_front_ref(&list_2, (void *)strdup(str[i]));
                 }
                 ft_list_remove_if_ref(&list_1, (void *)str_ref[k], ft_cmp, free);
-                ft_list_remove_if_ref(&list_2, (void *)str_ref[k], ft_cmp, free);
+                ft_list_remove_if(&list_2, (void *)str_ref[k], ft_cmp, free);
                 ft_list_print_ref(list_1);
                 printf(" == ");
                 ft_list_print_ref(list_2);
