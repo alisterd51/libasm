@@ -50,37 +50,37 @@ ft_atoi_base:
 .LBB_invalid_char_loop:
     cmp     byte ptr [rsi + rcx], 0
     je      .LBB_invalid_char_loop_end
-    cmp     byte ptr [rsi + rcx], ' '
+    cmp     byte ptr [rsi + rcx], 32
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], '\f'
+    cmp     byte ptr [rsi + rcx], 12
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], '\n'
+    cmp     byte ptr [rsi + rcx], 10
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], '\r'
+    cmp     byte ptr [rsi + rcx], 13
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], '\t'
+    cmp     byte ptr [rsi + rcx], 9
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], '\v'
+    cmp     byte ptr [rsi + rcx], 11
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], '-'
+    cmp     byte ptr [rsi + rcx], 45
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], '+'
+    cmp     byte ptr [rsi + rcx], 43
     je      .LBB_error_base
     inc     rcx
     jmp     .LBB_invalid_char_loop
 .LBB_invalid_char_loop_end:
 .LBB_skip_space:
-    cmp     byte ptr [rdi], ' '
+    cmp     byte ptr [rdi], 32
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], '\f'
+    cmp     byte ptr [rdi], 12
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], '\n'
+    cmp     byte ptr [rdi], 10
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], '\r'
+    cmp     byte ptr [rdi], 13
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], '\t'
+    cmp     byte ptr [rdi], 9
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], '\v'
+    cmp     byte ptr [rdi], 11
     je      .LBB_skip_one_space
     jmp     .LBB_skip_sign
 .LBB_skip_one_space:
@@ -89,9 +89,9 @@ ft_atoi_base:
 .LBB_skip_sign:
     mov     r14, 1 # ici r14 represente le signe
 .LBB_skip_sign_loop:
-    cmp     byte ptr [rdi], '+'
+    cmp     byte ptr [rdi], 43
     je      .LBB_skip_sign_loop_continue
-    cmp     byte ptr [rdi], '-'
+    cmp     byte ptr [rdi], 45
     je      .LBB_skip_sign_loop_neg
     jmp     .LBB_loop_atoi
 .LBB_skip_sign_loop_neg:

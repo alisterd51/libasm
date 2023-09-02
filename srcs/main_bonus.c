@@ -22,7 +22,7 @@ int is_duplicate(const char *base)
 int invalid_char_base(const char *base)
 {
     for (int i = 0; base[i]; i++)
-        if (isspace(base[i]) || base[i] == '-' || base[i] == '+')
+        if (isspace(base[i]) || base[i] == 45 || base[i] == 43)
             return (1);
     return (0);
 }
@@ -39,9 +39,9 @@ int ft_atoi_base_ref(const char *str, const char *base)
     {
         i++;
     }
-    while (str[i] == '-' || str[i] == '+')
+    while (str[i] == 45 || str[i] == 43)
     {
-        if (str[i] == '-')
+        if (str[i] == 45)
             sign *= -1;
         i++;
     }
