@@ -3,21 +3,65 @@
     .globl ft_list_sort
 
 ft_list_sort:
+    push    r15
+    push    r14
+    push    r13
+    push    r12
+    push    r11
+    push    r10
+    push    r9
     push    rax
-    mov     r15, rdi # r15 est **begin_list
-    mov     r14, [rdi] # r14 est *begin_list
-.LBB_loop:
-    mov     rdi, r14
+    mov     r15, rdi
+.LBB_1:
+    mov     rdi, [r15]
     call    .ft_list_sorted
-    cmp     rax, 1
-    je      .LBB_end
-.LBB_loop_loop:
-    
- 
-
-.LBB_end:
-    mov     [r15], r14 # r15 est **begin_list et r14 est debut chaine
+    cmp     rax, 0
+    jne     .LBB_1_end
+    mov     r14, 0
+    mov     r13, [r15]
+.LBB_2:
+    cmp     r13, 0
+    je      .LBB_2_end
+    cmp     qword ptr 8[r13], 0
+    je      .LBB_2_end
+    mov     r12, rsi
+    mov     rdi, 0[r13]
+    mov     rsi, 8[r13]
+    mov     rsi, 0[rsi]
+    call    r12
+    mov     rsi, r12
+    cmp     eax, 0
+    jle     .LBB_3
+    mov     r11, 8[r13]
+    mov     r11, 8[r11]
+    cmp     r14, 0
+    jne     .LBB_4
+    mov     r10, 8[r13]
+    mov     [r15], r10
+    jmp     .LBB_5
+.LBB_4:
+    mov     r9, 8[r13]
+    mov     8[r14], r9
+.LBB_5:
+    mov     r9, 8[r13]
+    mov     8[r9], r13
+    mov     8[r13], r11
+.LBB_3:
+    mov     r14, r13
+    mov     r13, 8[r13]
+    jmp     .LBB_2
+.LBB_2_end:
+    jmp     .LBB_1
+.LBB_1_end:
+    mov     rdi, r15
     pop     rax
+    pop     r9
+    pop     r10
+    pop     r11
+    pop     r12
+    pop     r13
+    pop     r14
+    pop     r15
     ret
 
 .ft_list_sorted:

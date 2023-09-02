@@ -113,7 +113,7 @@ int ft_list_sorted_ref(t_list *begin_list, int (*cmp)(void *, void *))
     return (1);
 }
 
-void ft_list_sort_ref(t_list **begin_list, int(cmp)(void *, void *))
+void ft_list_sort_ref(t_list **begin_list, int(*cmp)(void *, void *))
 {
     t_list list = (t_list){.data = NULL, .next = *begin_list};
 
@@ -135,7 +135,7 @@ void ft_list_sort_ref(t_list **begin_list, int(cmp)(void *, void *))
     *begin_list = list.next;
 }
 
-void ft_list_sort_ref2(t_list **begin_list, int(cmp)(void *, void *))
+void ft_list_sort_ref2(t_list **begin_list, int(*cmp)(void *, void *))
 {
     while (!ft_list_sorted_ref(*begin_list, cmp))
     {
@@ -308,10 +308,10 @@ int main()
     // test ft_list_sort
     {
         printf("\ntest ft_list_sort:\n");
-        const char *str[] = {"a", "b", "c", NULL};
-        const int lens[] = {0, 1, 2, 3};
+        const char *str[] = {"a", "b", "c", "A", "a", "d", NULL};
+        const int lens[] = {0, 1, 2, 3, 4, 5, 6};
 
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 7; j++)
         {
             printf("ft_list_sort(): ");
             t_list *list_1 = NULL;
@@ -323,9 +323,9 @@ int main()
                 ft_list_push_front_ref(&list_2, (void *)strdup(str[i]));
             }
             ft_list_sort_ref(&list_1, ft_cmp);
-            ft_list_sort_ref2(&list_2, ft_cmp);
             ft_list_print_ref(list_1);
             printf(" == ");
+            ft_list_sort(&list_2, ft_cmp);
             ft_list_print_ref(list_2);
             if (ft_list_diff_ref(list_1, list_2) == 0)
             {
