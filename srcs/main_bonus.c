@@ -102,7 +102,7 @@ void ft_list_print_ref(t_list *list)
     }
 }
 
-int ft_list_sorted_ref(t_list *begin_list, int(cmp)(void *, void *))
+int ft_list_sorted_ref(t_list *begin_list, int(*cmp)(void *, void *))
 {
     while (begin_list != NULL && begin_list->next != NULL)
     {
