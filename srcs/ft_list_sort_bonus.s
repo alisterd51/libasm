@@ -1,6 +1,5 @@
-    .text
-    .intel_syntax noprefix
-    .globl ft_list_sort
+    section .text
+    global ft_list_sort
 
 ft_list_sort:
     push    r15
@@ -22,7 +21,7 @@ ft_list_sort:
 .LBB_2:
     cmp     r13, 0
     je      .LBB_2_end
-    cmp     qword ptr 8[r13], 0
+    cmp     qword 8[r13], 0
     je      .LBB_2_end
     mov     r12, rsi
     mov     rdi, 0[r13]
@@ -74,7 +73,7 @@ ft_list_sort:
 .ft_list_sorted_loop:
     cmp     rdi, 0
     je      .ft_list_sorted_end_true
-    cmp     qword ptr [rdi + 8], 0
+    cmp     qword [rdi + 8], 0
     je      .ft_list_sorted_end_true
     mov     r15, 0[rdi]
     mov     r14, 8[rdi]
@@ -102,5 +101,4 @@ ft_list_sort:
     pop     r15
     ret
 
-.end:
-    .section    ".note.GNU-stack","",@progbits
+    section .note.GNU-stack noalloc noexec nowrite progbits

@@ -42,7 +42,7 @@ DEPS_CHECK_BONUS	:= ${OBJS_CHECK_BONUS:.o=.d}
 -include ${addprefix ${build_dir}/, ${DEPS} ${DEPS_BONUS} ${DEPS_CHECK} ${DEPS_CHECK_BONUS}}
 
 CC	:= clang
-AS	:= clang
+AS	:= nasm
 AR	:= ar rcs
 
 CFLAGS.debug	:= -O0 -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
@@ -56,11 +56,11 @@ LDFLAGS.debug	:= -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
 LDFLAGS.release	:= -O3
 LDFLAGS	:= ${LDFLAGS.${BUILD}}
 
-ASFLAGS.clang	:= -masm=intel
+ASFLAGS.nasm	:= -f elf64 -w+allerror
 ASFLAGS := ${ASFLAGS.${AS}}
 
 COMPILE.C	= ${CC} -MMD -MP ${CFLAGS} -c $< -o $@
-COMPILE.ASM	= ${AS} ${ASFLAGS} -c $< -o $@
+COMPILE.ASM	= ${AS} ${ASFLAGS} $< -o $@
 LINK	= ${CC} ${LDFLAGS} ${filter-out Makefile, $^} ${LDLIBS} -o $@
 LINK_BONUS	= ${CC} ${LDFLAGS} ${filter-out Makefile, $^} ${LDLIBS_BONUS} -o $@
 ARCHIVE	= ${AR} $@ ${filter-out Makefile, $^}

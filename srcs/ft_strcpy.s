@@ -1,6 +1,5 @@
-    .text
-    .intel_syntax noprefix
-    .globl ft_strcpy
+    section .text
+    global ft_strcpy
 
 ft_strcpy:
     push    rcx
@@ -13,9 +12,9 @@ ft_strcpy:
     inc     rcx
     jmp     .LBB_loop
 .LBB_end:
-    mov     byte ptr [rdi + rcx], 0
+    mov     byte [rdi + rcx], 0
     mov     rax, rdi
     pop     rcx
     ret
-.end:
-    .section    ".note.GNU-stack","",@progbits
+
+    section .note.GNU-stack noalloc noexec nowrite progbits

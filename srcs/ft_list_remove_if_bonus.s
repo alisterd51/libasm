@@ -1,7 +1,6 @@
-    .text
-    .intel_syntax noprefix
-    .extern free
-    .globl ft_list_remove_if
+    section .text
+    extern free
+    global ft_list_remove_if
 
 ft_list_remove_if:
     push    rax
@@ -47,7 +46,7 @@ ft_list_remove_if:
     push    rsi
     push    rdx
     push    rcx
-    call    free
+    call    free wrt ..plt
     pop     rcx
     pop     rdx
     pop     rsi
@@ -79,5 +78,5 @@ ft_list_remove_if:
     pop     rbx
     pop     rax
     ret
-.end:
-    .section    ".note.GNU-stack","",@progbits
+
+    section .note.GNU-stack noalloc noexec nowrite progbits

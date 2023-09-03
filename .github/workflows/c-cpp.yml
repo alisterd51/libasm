@@ -15,37 +15,37 @@ jobs:
     - uses: actions/checkout@v3
     - name: default debug
       run: |
-        make fclean check CC=cc AS=as
-        make fclean check_bonus CC=cc AS=as
+        make fclean check CC=cc
+        make fclean check_bonus CC=cc
     - name: gcc debug
       run: |
-        make fclean check CC=gcc AS=gcc
-        make fclean check_bonus CC=gcc AS=gcc
+        make fclean check CC=gcc
+        make fclean check_bonus CC=gcc
     - name: clang debug
       run: |
-        make fclean check CC=clang AS=clang
-        make fclean check_bonus CC=clang AS=clang
+        make fclean check CC=clang
+        make fclean check_bonus CC=clang
     - name: default release
       run: |
-        make fclean check BUILD=release CC=cc AS=as
-        make fclean check_bonus BUILD=release CC=cc AS=as
+        make fclean check BUILD=release CC=cc
+        make fclean check_bonus BUILD=release CC=cc
     - name: gcc release
       run: |
-        make fclean check BUILD=release CC=gcc AS=gcc
-        make fclean check_bonus BUILD=release CC=gcc AS=gcc
+        make fclean check BUILD=release CC=gcc
+        make fclean check_bonus BUILD=release CC=gcc
     - name: clang release
       run: |
-        make fclean check BUILD=release CC=clang AS=clang
-        make fclean check_bonus BUILD=release CC=clang AS=clang
+        make fclean check BUILD=release CC=clang
+        make fclean check_bonus BUILD=release CC=clang
     - name: default normal
       run: |
-        make fclean check BUILD=normal CC=cc AS=as
-        make fclean check_bonus BUILD=normal CC=cc AS=as
+        make fclean check BUILD=normal CC=cc
+        make fclean check_bonus BUILD=normal CC=cc
     - name: gcc normal
       run: |
-        make fclean check BUILD=normal CC=gcc AS=gcc
-        make fclean check_bonus BUILD=normal CC=gcc AS=gcc
+        make fclean check BUILD=normal CC=gcc
+        make fclean check_bonus BUILD=normal CC=gcc
     - name: clang normal
       run: |
-        make fclean check BUILD=normal CC=clang AS=clang
-        make fclean check_bonus BUILD=normal CC=clang AS=clang
+        make fclean check BUILD=normal CC=clang
+        make fclean check_bonus BUILD=normal CC=clang

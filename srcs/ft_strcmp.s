@@ -1,14 +1,13 @@
-    .text
-    .intel_syntax noprefix
-    .globl ft_strcmp
+    section .text
+    global ft_strcmp
 
 ft_strcmp:
     push    rcx
     mov     rcx, 0
 
 .LBB_loop:
-    mov     al, byte ptr [rsi + rcx]
-    cmp     al, byte ptr [rdi + rcx]
+    mov     al, byte [rsi + rcx]
+    cmp     al, byte [rdi + rcx]
     jne     .LBB_choice
     cmp     al, 0
     je     .LBB_choice
@@ -27,5 +26,5 @@ ft_strcmp:
 .LBB_end:
     pop     rcx
     ret
-.end:
-    .section    ".note.GNU-stack","",@progbits
+
+    section .note.GNU-stack noalloc noexec nowrite progbits

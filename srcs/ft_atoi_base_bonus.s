@@ -1,7 +1,6 @@
-    .text
-    .intel_syntax noprefix
-    .extern ft_strlen
-    .globl ft_atoi_base
+    section .text
+    extern ft_strlen
+    global ft_atoi_base
 
 ft_atoi_base:
     push    r15
@@ -24,14 +23,14 @@ ft_atoi_base:
 .LBB_invalid_duplicate_char:
     mov     rcx, 0
 .LBB_invalid_duplicate_char_loop:
-    cmp     byte ptr [rsi + rcx], 0
+    cmp     byte [rsi + rcx], 0
     je      .LBB_invalid_duplicate_char_loop_end
     mov     r14, rcx
 .LBB_invalid_duplicate_char_loop_loop:
-    cmp     byte ptr [rsi + r14 + 1], 0
+    cmp     byte [rsi + r14 + 1], 0
     je      .LBB_invalid_duplicate_char_loop_loop_end
-    mov     al, byte ptr [rsi + rcx]
-    cmp     byte ptr [rsi + r14 + 1], al
+    mov     al, byte [rsi + rcx]
+    cmp     byte [rsi + r14 + 1], al
     je      .LBB_error_base
     inc     r14
     jmp     .LBB_invalid_duplicate_char_loop_loop
@@ -42,39 +41,39 @@ ft_atoi_base:
 .LBB_invalid_char:
     mov     rcx, 0
 .LBB_invalid_char_loop:
-    cmp     byte ptr [rsi + rcx], 0
+    cmp     byte [rsi + rcx], 0
     je      .LBB_invalid_char_loop_end
-    cmp     byte ptr [rsi + rcx], 32
+    cmp     byte [rsi + rcx], 32
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], 12
+    cmp     byte [rsi + rcx], 12
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], 10
+    cmp     byte [rsi + rcx], 10
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], 13
+    cmp     byte [rsi + rcx], 13
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], 9
+    cmp     byte [rsi + rcx], 9
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], 11
+    cmp     byte [rsi + rcx], 11
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], 45
+    cmp     byte [rsi + rcx], 45
     je      .LBB_error_base
-    cmp     byte ptr [rsi + rcx], 43
+    cmp     byte [rsi + rcx], 43
     je      .LBB_error_base
     inc     rcx
     jmp     .LBB_invalid_char_loop
 .LBB_invalid_char_loop_end:
 .LBB_skip_space:
-    cmp     byte ptr [rdi], 32
+    cmp     byte [rdi], 32
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], 12
+    cmp     byte [rdi], 12
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], 10
+    cmp     byte [rdi], 10
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], 13
+    cmp     byte [rdi], 13
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], 9
+    cmp     byte [rdi], 9
     je      .LBB_skip_one_space
-    cmp     byte ptr [rdi], 11
+    cmp     byte [rdi], 11
     je      .LBB_skip_one_space
     jmp     .LBB_skip_sign
 .LBB_skip_one_space:
@@ -83,9 +82,9 @@ ft_atoi_base:
 .LBB_skip_sign:
     mov     r14, 1
 .LBB_skip_sign_loop:
-    cmp     byte ptr [rdi], 43
+    cmp     byte [rdi], 43
     je      .LBB_skip_sign_loop_continue
-    cmp     byte ptr [rdi], 45
+    cmp     byte [rdi], 45
     je      .LBB_skip_sign_loop_neg
     jmp     .LBB_loop_atoi
 .LBB_skip_sign_loop_neg:
@@ -96,12 +95,12 @@ ft_atoi_base:
 .LBB_loop_atoi:
     mov     r12, 0
 .LBB_loop_atoi_loop:
-    cmp     byte ptr [rdi], 0
+    cmp     byte [rdi], 0
     je      .LBB_end_succes
     mov     r11, rdi
     mov     r10, rsi
     mov     rdi, r10
-    mov     dl, byte ptr [r11]
+    mov     dl, byte [r11]
     mov     rsi, rdx
     call    .ft_strchr
     mov     rdi, r11
@@ -151,7 +150,7 @@ ft_atoi_base:
     ret
 
 .ft_strchr:
-    mov     dl, byte ptr [rdi]
+    mov     dl, byte [rdi]
     cmp     dl, 0
     je      .LBB_ft_strchr_end
     cmp     rdx, rsi
@@ -162,4 +161,4 @@ ft_atoi_base:
     mov     rax, rdi
     ret
 
-    .section    ".note.GNU-stack","",@progbits
+    section .note.GNU-stack noalloc noexec nowrite progbits

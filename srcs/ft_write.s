@@ -1,7 +1,6 @@
-    .text
-    .intel_syntax noprefix
-    .extern __errno_location
-    .globl ft_write
+    section .text
+    extern __errno_location
+    global ft_write
 
 ft_write:
     push    r8
@@ -11,11 +10,11 @@ ft_write:
     jge     .LBB_end
     mov     r8, rax
     neg     r8
-    call    __errno_location
+    call    __errno_location wrt ..plt
     mov     [rax], r8
     mov     rax, -1
 .LBB_end:
     pop     r8
     ret
-.end:
-    .section    ".note.GNU-stack","",@progbits
+
+    section .note.GNU-stack noalloc noexec nowrite progbits

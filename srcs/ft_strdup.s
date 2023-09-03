@@ -1,16 +1,15 @@
-    .text
-    .intel_syntax noprefix
-    .extern malloc
-    .extern ft_strlen
-    .extern ft_strcpy
-    .globl ft_strdup
+    section .text
+    extern malloc
+    extern ft_strlen
+    extern ft_strcpy
+    global ft_strdup
 
 ft_strdup:
     call    ft_strlen
     push    rdi
     mov     rdi, rax
     inc     rdi
-    call    malloc
+    call    malloc wrt ..plt
     cmp     rax, 0
     je      .LBB_end
     pop     rsi
@@ -18,5 +17,5 @@ ft_strdup:
     call    ft_strcpy
 .LBB_end:
     ret
-.end:
-    .section    ".note.GNU-stack","",@progbits
+
+    section .note.GNU-stack noalloc noexec nowrite progbits

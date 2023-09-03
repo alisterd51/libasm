@@ -1,6 +1,5 @@
-    .text
-    .intel_syntax noprefix
-    .globl ft_list_size
+    section .text
+    global ft_list_size
 
 ft_list_size:
     mov     rax, 0
@@ -12,5 +11,5 @@ ft_list_size:
     jmp     .LBB_loop
 .LBB_end:
     ret
-.end:
-    .section    ".note.GNU-stack","",@progbits
+
+    section .note.GNU-stack noalloc noexec nowrite progbits
