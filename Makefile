@@ -43,7 +43,8 @@ DEPS_CHECK_BONUS	:= ${OBJS_CHECK_BONUS:.o=.d}
 
 CC	:= clang
 AS	:= nasm
-AR	:= ar rcs
+AR	:= ar
+RM	:= rm -rf
 
 CFLAGS.debug	:= -O0 -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
 CFLAGS.release	:= -O3
@@ -59,11 +60,13 @@ LDFLAGS	:= ${LDFLAGS.${BUILD}}
 ASFLAGS.nasm	:= -f elf64 -w+allerror
 ASFLAGS := ${ASFLAGS.${AS}}
 
+ARFLAGS	:= rcs
+
 COMPILE.C	= ${CC} -MMD -MP ${CFLAGS} -c $< -o $@
 COMPILE.ASM	= ${AS} ${ASFLAGS} $< -o $@
 LINK	= ${CC} ${LDFLAGS} ${filter-out Makefile, $^} ${LDLIBS} -o $@
 LINK_BONUS	= ${CC} ${LDFLAGS} ${filter-out Makefile, $^} ${LDLIBS_BONUS} -o $@
-ARCHIVE	= ${AR} $@ ${filter-out Makefile, $^}
+ARCHIVE	= ${AR} ${ARFLAGS} $@ ${filter-out Makefile, $^}
 
 all: ${libs:%=${build_dir}/%}
 
@@ -95,10 +98,10 @@ ${LIB}: ${build_dir}/${LIB}
 ${LIB_BONUS}: ${build_dir}/${LIB_BONUS}
 
 clean:
-	rm -f ${addprefix ${build_dir}/, ${OBJS} ${DEPS}}
+	${RM} ${addprefix ${build_dir}/, ${OBJS} ${DEPS}}
 
 fclean:
-	rm -rf ${build_dir}
+	${RM} ${build_dir}
 
 re: fclean all
 
