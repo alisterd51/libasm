@@ -22,26 +22,20 @@ ft_atoi_base:
     cmp     rax, 1
     jle     .LBB_error_base
 .LBB_invalid_duplicate_char:
-# pour chaque char de base, on regarde la suite de la base
     mov     rcx, 0
 .LBB_invalid_duplicate_char_loop:
     cmp     byte ptr [rsi + rcx], 0
     je      .LBB_invalid_duplicate_char_loop_end
-    #
     mov     r14, rcx
 .LBB_invalid_duplicate_char_loop_loop:
     cmp     byte ptr [rsi + r14 + 1], 0
     je      .LBB_invalid_duplicate_char_loop_loop_end
-
-    # test si doublon
     mov     al, byte ptr [rsi + rcx]
     cmp     byte ptr [rsi + r14 + 1], al
     je      .LBB_error_base
-
     inc     r14
     jmp     .LBB_invalid_duplicate_char_loop_loop
 .LBB_invalid_duplicate_char_loop_loop_end:
-    #
     inc     rcx
     jmp     .LBB_invalid_duplicate_char_loop
 .LBB_invalid_duplicate_char_loop_end:
@@ -87,7 +81,7 @@ ft_atoi_base:
     inc     rdi
     jmp     .LBB_skip_space
 .LBB_skip_sign:
-    mov     r14, 1 # ici r14 represente le signe
+    mov     r14, 1
 .LBB_skip_sign_loop:
     cmp     byte ptr [rdi], 43
     je      .LBB_skip_sign_loop_continue
@@ -100,60 +94,42 @@ ft_atoi_base:
     inc     rdi
     jmp     .LBB_skip_sign_loop
 .LBB_loop_atoi:
-    mov     r12, 0  # r12 est le resulat en cours du atoi
+    mov     r12, 0
 .LBB_loop_atoi_loop:
-    # str[i] != '\0'
     cmp     byte ptr [rdi], 0
     je      .LBB_end_succes
-
-    mov     r11, rdi # r11 devient str
-    mov     r10, rsi # r10 devient base
+    mov     r11, rdi
+    mov     r10, rsi
     mov     rdi, r10
     mov     dl, byte ptr [r11]
     mov     rsi, rdx
     call    .ft_strchr
-
     mov     rdi, r11
     mov     rsi, r10
-
-    # strchr(base, str[i]) != NULL
     cmp     rax, 0
     je      .LBB_end_succes
-
-    # strchr(base, str[i]) != base + strlen(base)
-    mov     r9, rax # r9 devient le retour de strchr
-
+    mov     r9, rax
     mov     rdi, rsi
     call    ft_strlen
-    mov     r8, rax # r8 devient une sauvegarde du strlen(base)
+    mov     r8, rax
     add     rax, rdi
     cmp     rax, r9
-
     mov     rdi, r11
     mov     rsi, r10
-
     je      .LBB_end_succes
-
-    # if LONG_MAX / strlen(base) + (int)(strchr(base, str[i]) - base) < ret_value
     mov     rax, 9223372036854775807
     mov     rdx, 0
     idiv    r8
-    sub     r9, r10 # r9 devient strchr(base, str[i]) - base
+    sub     r9, r10
     add     rax, r9
     cmp     rax, r12
     jl      .LBB_error_overflow
-
-    # ret_value = ret_value * strlen(base) + (int)(strchr(base, str[i]) - base)
     imul    r12, r8
     add     r12, r9
-
     inc     rdi
     jmp     .LBB_loop_atoi_loop
-
 .LBB_end_succes:
     mov     rax, r12
-
-    # apply sign
     cmp     r14, 1
     je      .LBB_end
     neg     rax
