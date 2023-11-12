@@ -81,6 +81,10 @@ int main()
                 ret_1 = 1;
             else if (ret_1 < 0)
                 ret_1 = -1;
+            if (ret_2 > 0)
+                ret_2 = 1;
+            else if (ret_2 < 0)
+                ret_2 = -1;
             printf("strcmp(\"%s\", \"%s\"): ", str_1[i], str_2[i]);
             printf("%d == %d.", ret_1, ret_2);
             if (ret_1 == ret_2)
