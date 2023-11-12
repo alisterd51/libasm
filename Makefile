@@ -1,4 +1,8 @@
-all:
+# build mode:
+# default mode: 'debug'
+# release mode: 'release'
+# without flag (for example for valgrind): 'base'
+# use case: 'make BUILD=debug'
 BUILD	:= debug
 
 build_dir := ${BUILD}
@@ -38,8 +42,6 @@ DEPS	:= ${OBJS:.o=.d}
 DEPS_BONUS	:= ${OBJS_BONUS:.o=.d}
 DEPS_CHECK	:= ${OBJS_CHECK:.o=.d}
 DEPS_CHECK_BONUS	:= ${OBJS_CHECK_BONUS:.o=.d}
-
--include ${addprefix ${build_dir}/, ${DEPS} ${DEPS_BONUS} ${DEPS_CHECK} ${DEPS_CHECK_BONUS}}
 
 CC	:= clang
 AS	:= nasm
@@ -112,3 +114,5 @@ check_bonus: bonus ${exes_bonus:%=${build_dir}/%}
 	./${build_dir}/${BIN_CHECK_BONUS}
 
 .PHONY: all bonus clean fclean re ${LIB} ${LIB_BONUS}
+
+-include ${addprefix ${build_dir}/, ${DEPS} ${DEPS_BONUS} ${DEPS_CHECK} ${DEPS_CHECK_BONUS}}
