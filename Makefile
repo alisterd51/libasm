@@ -55,7 +55,7 @@ CFLAGS	:= -Wall -Wextra -Werror ${CFLAGS.${BUILD}}
 LDLIBS	:= -lc -L${build_dir} -l:${LIB}
 LDLIBS_BONUS	:= -lc -L${build_dir} -l:${LIB_BONUS}
 
-LDFLAGS.debug	:= -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
+LDFLAGS.debug	:= -O0 -g3 -fsanitize=address -fsanitize=undefined -fsanitize=leak
 LDFLAGS.release	:= -O3
 LDFLAGS	:= ${LDFLAGS.${BUILD}}
 
