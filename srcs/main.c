@@ -13,10 +13,10 @@
 static inline void print_result(int result, int *ret_value)
 {
     if (result)
-        printf(GRN " OK\n" RESET);
+        printf(GRN " OK" RESET "\n");
     else
     {
-        printf(RED " KO\n" RESET);
+        printf(RED " KO" RESET "\n");
         *ret_value = 1;
     }
 }
