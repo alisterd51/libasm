@@ -21,7 +21,7 @@ static inline void print_result(int result, int *ret_value)
     }
 }
 
-void    test_ft_strlen(int *ret_value)
+static void test_ft_strlen(int *ret_value)
 {
     printf("\ntest ft_strlen:\n");
     const char *str[] = {"", "hello", "t", "aaaaaa", "        ", "qwertyuiop", NULL};
@@ -36,7 +36,7 @@ void    test_ft_strlen(int *ret_value)
     }
 }
 
-void    test_ft_strcpy(int *ret_value)
+static void test_ft_strcpy(int *ret_value)
 {
     printf("\ntest ft_strcpy:\n");
     const char *str[] = {"", "hello", "t", "aaaaaa", "        ", "qwertyuiop", NULL};
@@ -63,7 +63,7 @@ void    test_ft_strcpy(int *ret_value)
     }
 }
 
-void    test_ft_strcmp(int *ret_value)
+static void test_ft_strcmp(int *ret_value)
 {
     printf("\ntest ft_strcmp:\n");
     const char *str_1[] = {"", "hello", "t", "y", "", "a", NULL};
@@ -88,7 +88,7 @@ void    test_ft_strcmp(int *ret_value)
     }
 }
 
-void    test_ft_write(int *ret_value)
+static void test_ft_write(int *ret_value)
 {
     printf("\ntest ft_write:\n");
     const char *str[] = {"", "", "hello", "hello", "hello", "hello", "\0a\0b", NULL};
@@ -99,8 +99,8 @@ void    test_ft_write(int *ret_value)
 
         for (int j = 0; j < 3; j++)
         {
-            int ret_1 = 0;
-            int ret_2 = 0;
+            ssize_t ret_1 = 0;
+            ssize_t ret_2 = 0;
             int errno_1 = 0;
             int errno_2 = 0;
 
@@ -118,13 +118,13 @@ void    test_ft_write(int *ret_value)
             printf("\', ");
             fflush(NULL);
 
-            printf("%d == %d, errno: %d == %d.", ret_1, ret_2, errno_1, errno_2);
+            printf("%zd == %zd, errno: %d == %d.", ret_1, ret_2, errno_1, errno_2);
             print_result(ret_1 == ret_2 && errno_1 == errno_2, ret_value);
         }
     }
 }
 
-void    test_ft_read(int *ret_value)
+static void test_ft_read(int *ret_value)
 {
     printf("\ntest ft_read:\n");
     const char *content[] = {"", "a", "hello", NULL};
@@ -135,7 +135,7 @@ void    test_ft_read(int *ret_value)
         for (int j = 0; j < 3; j++)
         {
             int fd = open("test_read.txt", O_WRONLY | O_CREAT, 00662);
-            int ret_write = write(fd, content[i], strlen(content[i]));
+            ssize_t ret_write = write(fd, content[i], strlen(content[i]));
             (void)ret_write;
             close(fd);
             int fd_1 = open("test_read.txt", O_RDONLY);
@@ -144,8 +144,8 @@ void    test_ft_read(int *ret_value)
             const int fds_2[] = {fd_2, -1, 42};
             for (int k = 0; k < 3; k++)
             {
-                int ret_1 = 0;
-                int ret_2 = 0;
+                ssize_t ret_1 = 0;
+                ssize_t ret_2 = 0;
                 int errno_1 = 0;
                 int errno_2 = 0;
 
@@ -159,7 +159,7 @@ void    test_ft_read(int *ret_value)
                 ret_2 = ft_read(fds_2[k], buf_2, lens[j]);
                 if (ret_2 == -1)
                     errno_2 = errno;
-                printf("ret: %d == %d, buf: \"%s\" == \"%s\", errno: %d == %d", ret_1, ret_2, buf_1, buf_2, errno_1, errno_2);
+                printf("ret: %zd == %zd, buf: \"%s\" == \"%s\", errno: %d == %d", ret_1, ret_2, buf_1, buf_2, errno_1, errno_2);
                 print_result(ret_1 == ret_2 && strcmp(buf_1, buf_2) == 0 && errno_1 == errno_2, ret_value);
             }
             close(fd_1);
@@ -169,7 +169,7 @@ void    test_ft_read(int *ret_value)
     }
 }
 
-void    test_ft_strdup(int *ret_value)
+static void test_ft_strdup(int *ret_value)
 {
     printf("\ntest ft_strdup:\n");
     const char *str[] = {"", "a", "hello", NULL};
