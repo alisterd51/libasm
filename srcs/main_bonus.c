@@ -1,10 +1,10 @@
+#include "libasm.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <ctype.h>
 #include <limits.h>
-#include "libasm.h"
 
 int is_duplicate(const char *base)
 {

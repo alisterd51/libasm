@@ -1,10 +1,10 @@
+#include "libasm.h"
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include "libasm.h"
 
 int main()
 {
